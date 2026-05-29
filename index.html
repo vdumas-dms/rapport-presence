@@ -1,0 +1,98 @@
+const outputCard = document.getElementById('outputCard');
+const reportTA   = document.getElementById('reportOutput');
+const errorBox   = document.getElementById('errorBox');
+const fileBadge  = document.getElementById('fileBadge');
+
+// Mise à jour live des durées quand on change un horaire
+for (let i = 1; i <= 5; i++) {
+  document.getElementById(`start_${i}`).addEventListener('input', updateDurations);
+  document.getElementById(`end_${i}`).addEventListener('input', updateDurations);
+}
+
+uploadZone.addEventListener('click', () => fileInput.click());
+
+uploadZone.addEventListener('dragover', e => {
+  e.preventDefault();
+  uploadZone.classList.add('dragover');
+});
+
+uploadZone.addEventListener('dragleave', () => {
+  uploadZone.classList.remove('dragover');
+});
+
+uploadZone.addEventListener('drop', e => {
+  e.preventDefault();
+  uploadZone.classList.remove('dragover');
+  const f = e.dataTransfer.files[0];
+  if (f) processFile(f);
+});
+
+fileInput.addEventListener('change', e => {
+  if (e.target.files[0]) processFile(e.target.files[0]);
+});
+
+function processFile(file) {
+  hideError();
+  if (!file.name.match(/\.(csv|txt)$/i)) {
+    showError('Format non supporté. Veuillez fournir un fichier .csv');
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      const rows = parseCSV(e.target.result);
+      if (rows.length === 0) {
+        showError(
+          'Aucune donnée valide détectée. Vérifiez que le fichier utilise le séparateur point-virgule ' +
+          'et contient les colonnes : name;date;connectionTime;availableTime;workingTime;breakTime;awayTime'
+        );
+        return;
+      }
+      const { report, allDev } = generateReport(rows);
+      reportTA.value = report;
+      renderSummary(allDev);
+      fileBadge.textContent = `📄 ${file.name} — ${rows.length} enregistrements traités`;
+      fileBadge.style.display = 'block';
+      outputCard.style.display = 'block';
+      document.getElementById('summaryCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } catch (err) {
+      showError('Erreur de traitement : ' + err.message);
+    }
+  };
+  reader.onerror = () => showError('Impossible de lire le fichier.');
+  reader.readAsText(file, 'UTF-8');
+}
+
+function showError(msg) {
+  errorBox.textContent = msg;
+  errorBox.style.display = 'block';
+}
+
+function hideError() {
+  errorBox.style.display = 'none';
+}
+
+function copyReport() {
+  reportTA.select();
+  navigator.clipboard.writeText(reportTA.value).then(() => {
+    const fb = document.getElementById('copyFeedback');
+    fb.style.display = 'inline';
+    setTimeout(() => fb.style.display = 'none', 2500);
+  }).catch(() => {
+    // Fallback pour navigateurs sans clipboard API
+    document.execCommand('copy');
+  });
+}
+
+function resetApp() {
+  fileInput.value = '';
+  outputCard.style.display = 'none';
+  document.getElementById('summaryCard').style.display = 'none';
+  fileBadge.style.display = 'none';
+  hideError();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
