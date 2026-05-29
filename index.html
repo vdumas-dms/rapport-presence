@@ -1,43 +1,653 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rapport de présence — YouSchool</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f4f6f9;
+      color: #1a1a2e;
+      padding: 24px 16px;
+      min-height: 100vh;
+    }
+
+    .container { max-width: 920px; margin: 0 auto; }
+
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 24px;
+      color: #1a1a2e;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 24px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    }
+
+    .card h2 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 18px;
+      color: #1a1a2e;
+    }
+
+    /* ── Config table ── */
+    .config-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+    .config-table th {
+      text-align: left;
+      color: #888;
+      font-weight: 600;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0 8px 8px;
+    }
+    .config-table td {
+      padding: 5px 8px;
+      vertical-align: middle;
+    }
+    .config-table td:first-child {
+      font-weight: 500;
+      color: #333;
+      width: 90px;
+    }
+    .config-table input[type="time"] {
+      border: 1px solid #dde3ec;
+      border-radius: 6px;
+      padding: 4px 8px;
+      font-size: 0.88rem;
+      width: 92px;
+      color: #1a1a2e;
+    }
+    .config-table input[type="number"] {
+      border: 1px solid #dde3ec;
+      border-radius: 6px;
+      padding: 4px 8px;
+      font-size: 0.88rem;
+      width: 64px;
+      color: #1a1a2e;
+    }
+    .duration-display {
+      font-size: 0.82rem;
+      color: #666;
+      display: inline-block;
+      min-width: 48px;
+    }
+
+    /* ── Upload zone ── */
+    #uploadZone {
+      background: #fff;
+      border: 2px dashed #c4cdd8;
+      border-radius: 14px;
+      padding: 44px 24px;
+      text-align: center;
+      cursor: pointer;
+      margin-bottom: 16px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    #uploadZone:hover, #uploadZone.dragover {
+      border-color: #4a6cf7;
+      background: #f2f5ff;
+    }
+    .upload-icon { font-size: 2.8rem; margin-bottom: 10px; }
+    #uploadZone p { color: #555; margin: 4px 0; }
+    .upload-hint { font-size: 0.8rem; color: #aaa; margin-top: 6px !important; }
+
+    /* ── Misc ── */
+    #errorBox {
+      background: #fff5f5;
+      border: 1px solid #ffc0c0;
+      border-radius: 10px;
+      padding: 12px 16px;
+      color: #c0392b;
+      font-size: 0.9rem;
+      margin-bottom: 16px;
+    }
+
+    #fileBadge {
+      background: #edf7f0;
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-size: 0.84rem;
+      color: #2e7d32;
+      margin-bottom: 16px;
+    }
+
+    /* ── Summary ── */
+    .sum-section { margin-bottom: 28px; }
+    .sum-section:last-child { margin-bottom: 0; }
+
+    .sum-section-title {
+      font-size: 0.92rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .sum-empty { color: #bbb; font-size: 0.88rem; font-style: italic; }
+
+    .summary-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 0;
+      border-bottom: 1px solid #f2f2f2;
+    }
+
+    .sum-rank {
+      font-size: 0.78rem;
+      color: #bbb;
+      width: 18px;
+      text-align: right;
+      flex-shrink: 0;
+    }
+    .sum-name {
+      width: 170px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      flex-shrink: 0;
+    }
+    .sum-bar-wrap {
+      flex: 1;
+      background: #ebebeb;
+      border-radius: 4px;
+      height: 7px;
+      overflow: hidden;
+    }
+    .sum-bar { height: 100%; border-radius: 4px; }
+    .bar-orange { background: #f39c12; }
+    .bar-green  { background: #27ae60; }
+    .bar-red    { background: #e74c3c; }
+
+    .sum-value {
+      font-size: 0.84rem;
+      font-weight: 700;
+      width: 56px;
+      text-align: right;
+      flex-shrink: 0;
+    }
+    .val-orange { color: #e67e22; }
+    .val-green  { color: #27ae60; }
+    .val-red    { color: #e74c3c; }
+
+    .sum-toggle {
+      background: none;
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.72rem;
+      color: #999;
+      padding: 2px 6px;
+      flex-shrink: 0;
+      transition: background 0.15s;
+    }
+    .sum-toggle:hover { background: #f5f5f5; color: #555; }
+
+    .sum-detail {
+      background: #f8f9fb;
+      border-radius: 8px;
+      padding: 10px 14px;
+      margin: 2px 0 6px;
+      font-size: 0.83rem;
+    }
+    .sum-detail-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 5px 0;
+      border-bottom: 1px solid #eee;
+    }
+    .sum-detail-row:last-child { border-bottom: none; }
+    .sum-detail-day {
+      color: #666;
+      width: 170px;
+      flex-shrink: 0;
+      font-weight: 500;
+    }
+    .sum-detail-info { flex: 1; color: #444; }
+    .sum-detail-expected { color: #aaa; font-size: 0.8rem; }
+    .sum-detail-diff {
+      font-weight: 700;
+      width: 56px;
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    /* ── Output card ── */
+    .output-actions {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 14px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 9px 18px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.88rem;
+      font-weight: 500;
+      transition: opacity 0.15s;
+    }
+    .btn:hover { opacity: 0.82; }
+    .btn-primary   { background: #4a6cf7; color: #fff; }
+    .btn-secondary { background: #eeeeee; color: #444; }
+
+    .copy-feedback { font-size: 0.84rem; color: #27ae60; font-weight: 500; }
+
+    #reportOutput {
+      width: 100%;
+      height: 420px;
+      font-family: 'Courier New', Consolas, monospace;
+      font-size: 0.79rem;
+      border: 1px solid #dde3ec;
+      border-radius: 10px;
+      padding: 14px;
+      resize: vertical;
+      line-height: 1.55;
+      color: #222;
+      background: #fafafa;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>📋 Rapport de présence</h1>
+
+  <div class="card">
+    <h2>⚙️ Configuration des horaires</h2>
+    <table class="config-table">
+      <thead>
+        <tr>
+          <th>Jour</th>
+          <th>Début</th>
+          <th>Fin</th>
+          <th>Durée nette</th>
+          <th>Pause (min)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Lundi</td>
+          <td><input type="time" id="start_1" value="09:00"></td>
+          <td><input type="time" id="end_1"   value="18:00"></td>
+          <td><span class="duration-display" id="dur_1">9h00</span></td>
+          <td><input type="number" id="break_1" value="80" min="0" max="480"></td>
+        </tr>
+        <tr>
+          <td>Mardi</td>
+          <td><input type="time" id="start_2" value="09:00"></td>
+          <td><input type="time" id="end_2"   value="17:00"></td>
+          <td><span class="duration-display" id="dur_2">8h00</span></td>
+          <td><input type="number" id="break_2" value="80" min="0" max="480"></td>
+        </tr>
+        <tr>
+          <td>Mercredi</td>
+          <td><input type="time" id="start_3" value="08:30"></td>
+          <td><input type="time" id="end_3"   value="14:00"></td>
+          <td><span class="duration-display" id="dur_3">5h30</span></td>
+          <td><input type="number" id="break_3" value="20" min="0" max="480"></td>
+        </tr>
+        <tr>
+          <td>Jeudi</td>
+          <td><input type="time" id="start_4" value="09:00"></td>
+          <td><input type="time" id="end_4"   value="18:00"></td>
+          <td><span class="duration-display" id="dur_4">9h00</span></td>
+          <td><input type="number" id="break_4" value="80" min="0" max="480"></td>
+        </tr>
+        <tr>
+          <td>Vendredi</td>
+          <td><input type="time" id="start_5" value="08:30"></td>
+          <td><input type="time" id="end_5"   value="16:00"></td>
+          <td><span class="duration-display" id="dur_5">7h30</span></td>
+          <td><input type="number" id="break_5" value="80" min="0" max="480"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div id="uploadZone">
+    <div class="upload-icon">📂</div>
+    <p><strong>Glissez votre fichier CSV ici</strong></p>
+    <p class="upload-hint">ou cliquez pour sélectionner — format AGENTS_STATE_PER_DAY.csv</p>
+  </div>
+  <input type="file" id="fileInput" accept=".csv,.txt" style="display:none">
+
+  <div id="errorBox"  style="display:none"></div>
+  <div id="fileBadge" style="display:none"></div>
+
+  <div id="summaryCard" class="card" style="display:none">
+    <h2>📊 Synthèse de la semaine</h2>
+    <p id="sumMeta" style="font-size:0.82rem;color:#888;margin-bottom:20px;"></p>
+
+    <div class="sum-section">
+      <div class="sum-section-title" style="color:#e67e22">☕ Dépassements de pause — cumulé par collaborateur</div>
+      <div id="sumBreaks"></div>
+    </div>
+
+    <div class="sum-section">
+      <div class="sum-section-title" style="color:#27ae60">⬆ Surplus de connexion — temps travaillé au-delà du prévu</div>
+      <div id="sumConnOver"></div>
+    </div>
+
+    <div class="sum-section">
+      <div class="sum-section-title" style="color:#e74c3c">⬇ Déficit de connexion — temps à rattraper</div>
+      <div id="sumConnUnder"></div>
+    </div>
+  </div>
+
+  <div id="outputCard" class="card" style="display:none">
+    <h2>📄 Rapport détaillé</h2>
+    <div class="output-actions">
+      <button class="btn btn-primary"   onclick="copyReport()">📋 Copier le rapport</button>
+      <span   id="copyFeedback" class="copy-feedback" style="display:none">✓ Copié dans le presse-papiers !</span>
+      <button class="btn btn-secondary" onclick="resetApp()">🔄 Nouveau fichier</button>
+    </div>
+    <textarea id="reportOutput" readonly></textarea>
+  </div>
+</div>
+
+<script>
 const outputCard = document.getElementById('outputCard');
 const reportTA   = document.getElementById('reportOutput');
 const errorBox   = document.getElementById('errorBox');
 const fileBadge  = document.getElementById('fileBadge');
+const uploadZone = document.getElementById('uploadZone');
+const fileInput  = document.getElementById('fileInput');
 
-// Mise à jour live des durées quand on change un horaire
+/* ── Schedule live update ── */
+function updateDurations() {
+  for (let i = 1; i <= 5; i++) {
+    const s = document.getElementById(`start_${i}`).value;
+    const e = document.getElementById(`end_${i}`).value;
+    if (!s || !e) continue;
+    const [sh, sm] = s.split(':').map(Number);
+    const [eh, em] = e.split(':').map(Number);
+    const tot = (eh * 60 + em) - (sh * 60 + sm);
+    document.getElementById(`dur_${i}`).textContent = tot > 0 ? fmtMin(tot) : '--';
+  }
+}
+
 for (let i = 1; i <= 5; i++) {
   document.getElementById(`start_${i}`).addEventListener('input', updateDurations);
   document.getElementById(`end_${i}`).addEventListener('input', updateDurations);
 }
 
+/* ── Upload events ── */
 uploadZone.addEventListener('click', () => fileInput.click());
-
-uploadZone.addEventListener('dragover', e => {
-  e.preventDefault();
-  uploadZone.classList.add('dragover');
-});
-
-uploadZone.addEventListener('dragleave', () => {
-  uploadZone.classList.remove('dragover');
-});
-
+uploadZone.addEventListener('dragover', e => { e.preventDefault(); uploadZone.classList.add('dragover'); });
+uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('dragover'));
 uploadZone.addEventListener('drop', e => {
   e.preventDefault();
   uploadZone.classList.remove('dragover');
   const f = e.dataTransfer.files[0];
   if (f) processFile(f);
 });
+fileInput.addEventListener('change', e => { if (e.target.files[0]) processFile(e.target.files[0]); });
 
-fileInput.addEventListener('change', e => {
-  if (e.target.files[0]) processFile(e.target.files[0]);
-});
+/* ── Helpers ── */
+function emailToName(email) {
+  const local      = email.split('@')[0];
+  const parts      = local.split('.');
+  const capitalize = s => s.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join('-');
+  const upperAll   = s => s.split('-').map(w => w.toUpperCase()).join('-');
+  const prenom     = capitalize(parts[0]);
+  const nom        = parts.slice(1).map(upperAll).join('-');
+  return `${prenom} ${nom}`;
+}
 
+function timeToMin(t) {
+  if (!t) return 0;
+  const p = t.split(':').map(Number);
+  return p[0] * 60 + p[1] + (p[2] ? Math.round(p[2] / 60) : 0);
+}
+
+function minToHhmm(min) {
+  const sign = min < 0 ? '-' : '';
+  const abs  = Math.abs(min);
+  const h    = Math.floor(abs / 60);
+  const m    = abs % 60;
+  return `${sign}${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}`;
+}
+
+function fmtMin(min) {
+  const abs = Math.abs(min);
+  const h   = Math.floor(abs / 60);
+  const m   = abs % 60;
+  if (h === 0) return `${m}min`;
+  return `${h}h${String(m).padStart(2,'0')}`;
+}
+
+function getDayName(dateStr) {
+  const [d, mo, y] = dateStr.split('/').map(Number);
+  return ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'][new Date(y, mo-1, d).getDay()];
+}
+
+function dayIndex(dateStr) {
+  const [d, mo, y] = dateStr.split('/').map(Number);
+  const dow = new Date(y, mo-1, d).getDay();
+  return dow - 1; // Mon=0, Tue=1, Wed=2, Thu=3, Fri=4, Sun=-1, Sat=5
+}
+
+function dateCmp(a, b) {
+  const [da, ma, ya] = a.split('/').map(Number);
+  const [db, mb, yb] = b.split('/').map(Number);
+  return new Date(ya, ma-1, da) - new Date(yb, mb-1, db);
+}
+
+function getSchedule() {
+  const sched = [];
+  for (let i = 1; i <= 5; i++) {
+    const s = document.getElementById(`start_${i}`).value;
+    const e = document.getElementById(`end_${i}`).value;
+    const b = parseInt(document.getElementById(`break_${i}`).value) || 0;
+    const [sh, sm] = s.split(':').map(Number);
+    const [eh, em] = e.split(':').map(Number);
+    sched.push({ totalMin: (eh * 60 + em) - (sh * 60 + sm), breakMin: b });
+  }
+  return sched;
+}
+
+function padR(str, len) { return (str + ' '.repeat(len)).slice(0, len); }
+function padL(str, len) { return (' '.repeat(len) + str).slice(-len); }
+
+/* ── CSV parsing ── */
+function parseCSV(text) {
+  if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
+  const lines = text.split(/\r?\n/).filter(l => l.trim());
+  if (lines.length < 2) return [];
+  const headers = lines[0].split(';').map(h => h.trim().toLowerCase());
+  const rows = [];
+  for (let i = 1; i < lines.length; i++) {
+    const vals = lines[i].split(';');
+    const obj  = {};
+    headers.forEach((h, j) => obj[h] = (vals[j] || '').trim());
+    if (!obj.name || !obj.name.includes('@')) continue;
+    rows.push(obj);
+  }
+  return rows;
+}
+
+/* ── Report generation ── */
+function generateReport(rows) {
+  const sched  = getSchedule();
+  const byDate = {};
+
+  for (const row of rows) {
+    if (!byDate[row.date]) byDate[row.date] = [];
+    byDate[row.date].push(row);
+  }
+
+  const dates  = Object.keys(byDate).sort(dateCmp);
+  const lines  = [];
+  const allDev = [];
+
+  for (const date of dates) {
+    const dayRows = byDate[date];
+    const dIdx    = dayIndex(date);
+
+    if (dIdx < 0 || dIdx > 4) continue;
+    const s = sched[dIdx];
+    if (!s || s.totalMin <= 0) continue;
+
+    const avgConn = dayRows.reduce((sum, r) => sum + timeToMin(r.connectiontime), 0) / dayRows.length;
+    if (avgConn < 0.4 * s.totalMin) {
+      lines.push(`\n${'─'.repeat(64)}`);
+      lines.push(`${getDayName(date).toUpperCase()} ${date}  ⚠ Journée partielle — données non analysées`);
+      lines.push('─'.repeat(64));
+      continue;
+    }
+
+    lines.push(`\n${'═'.repeat(64)}`);
+    lines.push(`${getDayName(date).toUpperCase()} ${date}`);
+    lines.push('═'.repeat(64));
+    lines.push(padR('Collaborateur', 28) + padL('Connexion', 10) + padL('Écart', 8) + padL('Pause', 8) + padL('Écart pause', 12));
+    lines.push('─'.repeat(64));
+
+    const anomalies = [];
+    const sorted    = [...dayRows].sort((a, b) => emailToName(a.name).localeCompare(emailToName(b.name)));
+
+    for (const row of sorted) {
+      const name     = emailToName(row.name);
+      const connMin  = timeToMin(row.connectiontime);
+      const brkMin   = timeToMin(row.breaktime);
+      const connDiff = connMin - s.totalMin;
+      const brkDiff  = brkMin  - s.breakMin;
+      const flag     = (Math.abs(connDiff) > 30 || brkDiff > 5) ? ' [!]' : '';
+
+      lines.push(
+        padR(name, 28) +
+        padL(minToHhmm(connMin), 10) +
+        padL((connDiff >= 0 ? '+' : '') + minToHhmm(connDiff), 8) +
+        padL(minToHhmm(brkMin), 8) +
+        padL((brkDiff  >= 0 ? '+' : '') + minToHhmm(brkDiff) + flag, 12)
+      );
+
+      if (flag) anomalies.push({ name, connDiff, brkDiff });
+
+      allDev.push({ email: row.name, name, date, dayName: getDayName(date), connMin, breakMin: brkMin, connDiff, breakDiff: brkDiff, sched: s });
+    }
+
+    if (anomalies.length) {
+      lines.push('');
+      lines.push('⚠ Anomalies :');
+      for (const a of anomalies) {
+        const parts = [];
+        if (Math.abs(a.connDiff) > 30) parts.push(`connexion : ${a.connDiff > 0 ? '+' : ''}${fmtMin(a.connDiff)}`);
+        if (a.brkDiff > 5)             parts.push(`pause dépassée : +${fmtMin(a.brkDiff)}`);
+        lines.push(`  [!] ${a.name} — ${parts.join(', ')}`);
+      }
+    }
+  }
+
+  return { report: lines.join('\n'), allDev };
+}
+
+/* ── Summary ── */
+function buildSummaryData(allDev) {
+  const people = {};
+  for (const d of allDev) {
+    if (!people[d.email]) people[d.email] = { name: d.name, breakTotal: 0, connTotal: 0, days: [] };
+    people[d.email].breakTotal += d.breakDiff;
+    people[d.email].connTotal  += d.connDiff;
+    people[d.email].days.push(d);
+  }
+  const list = Object.values(people);
+  return {
+    breakOverruns: list.filter(p => p.breakTotal > 0).sort((a, b) => b.breakTotal - a.breakTotal),
+    connOver:      list.filter(p => p.connTotal  > 0).sort((a, b) => b.connTotal  - a.connTotal),
+    connUnder:     list.filter(p => p.connTotal  < 0).sort((a, b) => a.connTotal  - b.connTotal),
+  };
+}
+
+function toggleDetail(btn) {
+  const row    = btn.closest('.summary-row');
+  const detail = row.nextElementSibling;
+  const open   = detail.style.display !== 'none';
+  detail.style.display = open ? 'none' : 'block';
+  btn.textContent = open ? '▶' : '▼';
+}
+
+function renderSummaryList(containerId, items, type) {
+  const el = document.getElementById(containerId);
+  if (!items.length) {
+    el.innerHTML = '<p class="sum-empty">Aucune anomalie détectée.</p>';
+    return;
+  }
+  const maxVal = Math.max(...items.map(p => Math.abs(type === 'break' ? p.breakTotal : p.connTotal)));
+  el.innerHTML = items.map((p, idx) => {
+    const total      = type === 'break' ? p.breakTotal : p.connTotal;
+    const abs        = Math.abs(total);
+    const pct        = Math.round(abs / maxVal * 100);
+    const sign       = total > 0 ? '+' : '-';
+    const colorClass = type === 'break' ? 'val-orange' : total > 0 ? 'val-green' : 'val-red';
+    const barClass   = type === 'break' ? 'bar-orange' : total > 0 ? 'bar-green' : 'bar-red';
+
+    const detailDays = p.days
+      .filter(d => type === 'break' ? d.breakDiff > 0 : type === 'connOver' ? d.connDiff > 0 : d.connDiff < 0)
+      .sort((a, b) => dateCmp(a.date, b.date));
+
+    const detailHTML = detailDays.map(d => {
+      const diff     = type === 'break' ? d.breakDiff : d.connDiff;
+      const real     = type === 'break' ? d.breakMin  : d.connMin;
+      const expected = type === 'break' ? d.sched.breakMin : d.sched.totalMin;
+      const label    = type === 'break' ? 'Pause' : 'Connexion';
+      const diffSign = diff > 0 ? '+' : '';
+      return `<div class="sum-detail-row">
+        <span class="sum-detail-day">${d.dayName} ${d.date}</span>
+        <span class="sum-detail-info">${label} : ${minToHhmm(real)} <span class="sum-detail-expected">(attendu ${minToHhmm(expected)})</span></span>
+        <span class="sum-detail-diff ${colorClass}">${diffSign}${fmtMin(Math.abs(diff))}</span>
+      </div>`;
+    }).join('');
+
+    return `<div class="summary-row">
+      <span class="sum-rank">${idx + 1}</span>
+      <span class="sum-name">${p.name}</span>
+      <div class="sum-bar-wrap"><div class="sum-bar ${barClass}" style="width:${pct}%"></div></div>
+      <span class="sum-value ${colorClass}">${sign}${fmtMin(abs)}</span>
+      <button class="sum-toggle" onclick="toggleDetail(this)">▶</button>
+    </div>
+    <div class="sum-detail" style="display:none">${detailHTML}</div>`;
+  }).join('');
+}
+
+function renderSummary(allDev) {
+  const { breakOverruns, connOver, connUnder } = buildSummaryData(allDev);
+  renderSummaryList('sumBreaks',    breakOverruns, 'break');
+  renderSummaryList('sumConnOver',  connOver,      'connOver');
+  renderSummaryList('sumConnUnder', connUnder,     'connUnder');
+  const dates = [...new Set(allDev.map(d => d.date))];
+  document.getElementById('sumMeta').textContent =
+    `${dates.length} jour(s) analysé(s) — ${allDev.length} enregistrements`;
+  document.getElementById('summaryCard').style.display = 'block';
+}
+
+/* ── File processing ── */
 function processFile(file) {
   hideError();
   if (!file.name.match(/\.(csv|txt)$/i)) {
     showError('Format non supporté. Veuillez fournir un fichier .csv');
     return;
   }
-
   const reader = new FileReader();
   reader.onload = e => {
     try {
@@ -80,7 +690,6 @@ function copyReport() {
     fb.style.display = 'inline';
     setTimeout(() => fb.style.display = 'none', 2500);
   }).catch(() => {
-    // Fallback pour navigateurs sans clipboard API
     document.execCommand('copy');
   });
 }
