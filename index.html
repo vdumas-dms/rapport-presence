@@ -17,12 +17,7 @@
 
     .container { max-width: 920px; margin: 0 auto; }
 
-    h1 {
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin-bottom: 24px;
-      color: #1a1a2e;
-    }
+    h1 { font-size: 1.5rem; font-weight: 700; margin-bottom: 24px; }
 
     .card {
       background: #fff;
@@ -31,20 +26,9 @@
       margin-bottom: 20px;
       box-shadow: 0 2px 10px rgba(0,0,0,0.06);
     }
+    .card h2 { font-size: 1rem; font-weight: 600; margin-bottom: 18px; }
 
-    .card h2 {
-      font-size: 1rem;
-      font-weight: 600;
-      margin-bottom: 18px;
-      color: #1a1a2e;
-    }
-
-    /* ── Config table ── */
-    .config-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.88rem;
-    }
+    .config-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
     .config-table th {
       text-align: left;
       color: #888;
@@ -54,39 +38,20 @@
       letter-spacing: 0.06em;
       padding: 0 8px 8px;
     }
-    .config-table td {
-      padding: 5px 8px;
-      vertical-align: middle;
-    }
-    .config-table td:first-child {
-      font-weight: 500;
-      color: #333;
-      width: 90px;
-    }
-    .config-table input[type="time"] {
-      border: 1px solid #dde3ec;
-      border-radius: 6px;
-      padding: 4px 8px;
-      font-size: 0.88rem;
-      width: 92px;
-      color: #1a1a2e;
-    }
+    .config-table td { padding: 5px 8px; vertical-align: middle; }
+    .config-table td:first-child { font-weight: 500; color: #333; width: 90px; }
+    .config-table input[type="time"],
     .config-table input[type="number"] {
       border: 1px solid #dde3ec;
       border-radius: 6px;
       padding: 4px 8px;
       font-size: 0.88rem;
-      width: 64px;
       color: #1a1a2e;
     }
-    .duration-display {
-      font-size: 0.82rem;
-      color: #666;
-      display: inline-block;
-      min-width: 48px;
-    }
+    .config-table input[type="time"]   { width: 92px; }
+    .config-table input[type="number"] { width: 64px; }
+    .duration-display { font-size: 0.82rem; color: #666; display: inline-block; min-width: 48px; }
 
-    /* ── Upload zone ── */
     #uploadZone {
       background: #fff;
       border: 2px dashed #c4cdd8;
@@ -97,15 +62,11 @@
       margin-bottom: 16px;
       transition: border-color 0.2s, background 0.2s;
     }
-    #uploadZone:hover, #uploadZone.dragover {
-      border-color: #4a6cf7;
-      background: #f2f5ff;
-    }
+    #uploadZone:hover, #uploadZone.dragover { border-color: #4a6cf7; background: #f2f5ff; }
     .upload-icon { font-size: 2.8rem; margin-bottom: 10px; }
     #uploadZone p { color: #555; margin: 4px 0; }
     .upload-hint { font-size: 0.8rem; color: #aaa; margin-top: 6px !important; }
 
-    /* ── Misc ── */
     #errorBox {
       background: #fff5f5;
       border: 1px solid #ffc0c0;
@@ -115,7 +76,6 @@
       font-size: 0.9rem;
       margin-bottom: 16px;
     }
-
     #fileBadge {
       background: #edf7f0;
       border-radius: 8px;
@@ -125,10 +85,8 @@
       margin-bottom: 16px;
     }
 
-    /* ── Summary ── */
     .sum-section { margin-bottom: 28px; }
     .sum-section:last-child { margin-bottom: 0; }
-
     .sum-section-title {
       font-size: 0.92rem;
       font-weight: 600;
@@ -137,7 +95,6 @@
       align-items: center;
       gap: 6px;
     }
-
     .sum-empty { color: #bbb; font-size: 0.88rem; font-style: italic; }
 
     .summary-row {
@@ -147,42 +104,14 @@
       padding: 8px 0;
       border-bottom: 1px solid #f2f2f2;
     }
-
-    .sum-rank {
-      font-size: 0.78rem;
-      color: #bbb;
-      width: 18px;
-      text-align: right;
-      flex-shrink: 0;
-    }
-    .sum-name {
-      width: 170px;
-      font-size: 0.88rem;
-      font-weight: 500;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      flex-shrink: 0;
-    }
-    .sum-bar-wrap {
-      flex: 1;
-      background: #ebebeb;
-      border-radius: 4px;
-      height: 7px;
-      overflow: hidden;
-    }
-    .sum-bar { height: 100%; border-radius: 4px; }
+    .sum-rank  { font-size: 0.78rem; color: #bbb; width: 18px; text-align: right; flex-shrink: 0; }
+    .sum-name  { width: 170px; font-size: 0.88rem; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex-shrink: 0; }
+    .sum-bar-wrap { flex: 1; background: #ebebeb; border-radius: 4px; height: 7px; overflow: hidden; }
+    .sum-bar   { height: 100%; border-radius: 4px; }
     .bar-orange { background: #f39c12; }
     .bar-green  { background: #27ae60; }
     .bar-red    { background: #e74c3c; }
-
-    .sum-value {
-      font-size: 0.84rem;
-      font-weight: 700;
-      width: 56px;
-      text-align: right;
-      flex-shrink: 0;
-    }
+    .sum-value { font-size: 0.84rem; font-weight: 700; width: 56px; text-align: right; flex-shrink: 0; }
     .val-orange { color: #e67e22; }
     .val-green  { color: #27ae60; }
     .val-red    { color: #e74c3c; }
@@ -215,43 +144,16 @@
       border-bottom: 1px solid #eee;
     }
     .sum-detail-row:last-child { border-bottom: none; }
-    .sum-detail-day {
-      color: #666;
-      width: 170px;
-      flex-shrink: 0;
-      font-weight: 500;
-    }
+    .sum-detail-day  { color: #666; width: 170px; flex-shrink: 0; font-weight: 500; }
     .sum-detail-info { flex: 1; color: #444; }
     .sum-detail-expected { color: #aaa; font-size: 0.8rem; }
-    .sum-detail-diff {
-      font-weight: 700;
-      width: 56px;
-      text-align: right;
-      flex-shrink: 0;
-    }
+    .sum-detail-diff { font-weight: 700; width: 56px; text-align: right; flex-shrink: 0; }
 
-    /* ── Output card ── */
-    .output-actions {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 14px;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      padding: 9px 18px;
-      border-radius: 8px;
-      border: none;
-      cursor: pointer;
-      font-size: 0.88rem;
-      font-weight: 500;
-      transition: opacity 0.15s;
-    }
+    .output-actions { display: flex; gap: 10px; margin-bottom: 14px; align-items: center; flex-wrap: wrap; }
+    .btn { padding: 9px 18px; border-radius: 8px; border: none; cursor: pointer; font-size: 0.88rem; font-weight: 500; transition: opacity 0.15s; }
     .btn:hover { opacity: 0.82; }
     .btn-primary   { background: #4a6cf7; color: #fff; }
     .btn-secondary { background: #eeeeee; color: #444; }
-
     .copy-feedback { font-size: 0.84rem; color: #27ae60; font-weight: 500; }
 
     #reportOutput {
@@ -278,46 +180,42 @@
     <table class="config-table">
       <thead>
         <tr>
-          <th>Jour</th>
-          <th>Début</th>
-          <th>Fin</th>
-          <th>Durée nette</th>
-          <th>Pause (min)</th>
+          <th>Jour</th><th>Début</th><th>Fin</th><th>Durée nette</th><th>Pause (min)</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td>Lundi</td>
-          <td><input type="time" id="start_1" value="09:00"></td>
-          <td><input type="time" id="end_1"   value="18:00"></td>
+          <td><input type="time"   id="start_1" value="09:00"></td>
+          <td><input type="time"   id="end_1"   value="18:00"></td>
           <td><span class="duration-display" id="dur_1">9h00</span></td>
           <td><input type="number" id="break_1" value="80" min="0" max="480"></td>
         </tr>
         <tr>
           <td>Mardi</td>
-          <td><input type="time" id="start_2" value="09:00"></td>
-          <td><input type="time" id="end_2"   value="17:00"></td>
+          <td><input type="time"   id="start_2" value="09:00"></td>
+          <td><input type="time"   id="end_2"   value="17:00"></td>
           <td><span class="duration-display" id="dur_2">8h00</span></td>
           <td><input type="number" id="break_2" value="80" min="0" max="480"></td>
         </tr>
         <tr>
           <td>Mercredi</td>
-          <td><input type="time" id="start_3" value="08:30"></td>
-          <td><input type="time" id="end_3"   value="14:00"></td>
+          <td><input type="time"   id="start_3" value="08:30"></td>
+          <td><input type="time"   id="end_3"   value="14:00"></td>
           <td><span class="duration-display" id="dur_3">5h30</span></td>
           <td><input type="number" id="break_3" value="20" min="0" max="480"></td>
         </tr>
         <tr>
           <td>Jeudi</td>
-          <td><input type="time" id="start_4" value="09:00"></td>
-          <td><input type="time" id="end_4"   value="18:00"></td>
+          <td><input type="time"   id="start_4" value="09:00"></td>
+          <td><input type="time"   id="end_4"   value="18:00"></td>
           <td><span class="duration-display" id="dur_4">9h00</span></td>
           <td><input type="number" id="break_4" value="80" min="0" max="480"></td>
         </tr>
         <tr>
           <td>Vendredi</td>
-          <td><input type="time" id="start_5" value="08:30"></td>
-          <td><input type="time" id="end_5"   value="16:00"></td>
+          <td><input type="time"   id="start_5" value="08:30"></td>
+          <td><input type="time"   id="end_5"   value="16:00"></td>
           <td><span class="duration-display" id="dur_5">7h30</span></td>
           <td><input type="number" id="break_5" value="80" min="0" max="480"></td>
         </tr>
@@ -338,17 +236,14 @@
   <div id="summaryCard" class="card" style="display:none">
     <h2>📊 Synthèse de la semaine</h2>
     <p id="sumMeta" style="font-size:0.82rem;color:#888;margin-bottom:20px;"></p>
-
     <div class="sum-section">
       <div class="sum-section-title" style="color:#e67e22">☕ Dépassements de pause — cumulé par collaborateur</div>
       <div id="sumBreaks"></div>
     </div>
-
     <div class="sum-section">
       <div class="sum-section-title" style="color:#27ae60">⬆ Surplus de connexion — temps travaillé au-delà du prévu</div>
       <div id="sumConnOver"></div>
     </div>
-
     <div class="sum-section">
       <div class="sum-section-title" style="color:#e74c3c">⬇ Déficit de connexion — temps à rattraper</div>
       <div id="sumConnUnder"></div>
@@ -374,45 +269,11 @@ const fileBadge  = document.getElementById('fileBadge');
 const uploadZone = document.getElementById('uploadZone');
 const fileInput  = document.getElementById('fileInput');
 
-/* ── Schedule live update ── */
-function updateDurations() {
-  for (let i = 1; i <= 5; i++) {
-    const s = document.getElementById(`start_${i}`).value;
-    const e = document.getElementById(`end_${i}`).value;
-    if (!s || !e) continue;
-    const [sh, sm] = s.split(':').map(Number);
-    const [eh, em] = e.split(':').map(Number);
-    const tot = (eh * 60 + em) - (sh * 60 + sm);
-    document.getElementById(`dur_${i}`).textContent = tot > 0 ? fmtMin(tot) : '--';
-  }
-}
-
-for (let i = 1; i <= 5; i++) {
-  document.getElementById(`start_${i}`).addEventListener('input', updateDurations);
-  document.getElementById(`end_${i}`).addEventListener('input', updateDurations);
-}
-
-/* ── Upload events ── */
-uploadZone.addEventListener('click', () => fileInput.click());
-uploadZone.addEventListener('dragover', e => { e.preventDefault(); uploadZone.classList.add('dragover'); });
-uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('dragover'));
-uploadZone.addEventListener('drop', e => {
-  e.preventDefault();
-  uploadZone.classList.remove('dragover');
-  const f = e.dataTransfer.files[0];
-  if (f) processFile(f);
-});
-fileInput.addEventListener('change', e => { if (e.target.files[0]) processFile(e.target.files[0]); });
-
-/* ── Helpers ── */
 function emailToName(email) {
-  const local      = email.split('@')[0];
-  const parts      = local.split('.');
+  const parts      = email.split('@')[0].split('.');
   const capitalize = s => s.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join('-');
   const upperAll   = s => s.split('-').map(w => w.toUpperCase()).join('-');
-  const prenom     = capitalize(parts[0]);
-  const nom        = parts.slice(1).map(upperAll).join('-');
-  return `${prenom} ${nom}`;
+  return `${capitalize(parts[0])} ${parts.slice(1).map(upperAll).join('-')}`;
 }
 
 function timeToMin(t) {
@@ -422,19 +283,14 @@ function timeToMin(t) {
 }
 
 function minToHhmm(min) {
-  const sign = min < 0 ? '-' : '';
-  const abs  = Math.abs(min);
-  const h    = Math.floor(abs / 60);
-  const m    = abs % 60;
-  return `${sign}${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}`;
+  const abs = Math.abs(min);
+  return `${min < 0 ? '-' : ''}${String(Math.floor(abs / 60)).padStart(2,'0')}:${String(abs % 60).padStart(2,'0')}`;
 }
 
 function fmtMin(min) {
   const abs = Math.abs(min);
-  const h   = Math.floor(abs / 60);
-  const m   = abs % 60;
-  if (h === 0) return `${m}min`;
-  return `${h}h${String(m).padStart(2,'0')}`;
+  const h = Math.floor(abs / 60), m = abs % 60;
+  return h === 0 ? `${m}min` : `${h}h${String(m).padStart(2,'0')}`;
 }
 
 function getDayName(dateStr) {
@@ -444,8 +300,7 @@ function getDayName(dateStr) {
 
 function dayIndex(dateStr) {
   const [d, mo, y] = dateStr.split('/').map(Number);
-  const dow = new Date(y, mo-1, d).getDay();
-  return dow - 1; // Mon=0, Tue=1, Wed=2, Thu=3, Fri=4, Sun=-1, Sat=5
+  return new Date(y, mo-1, d).getDay() - 1; // Mon=0 … Fri=4, Sun=-1, Sat=5
 }
 
 function dateCmp(a, b) {
@@ -455,56 +310,70 @@ function dateCmp(a, b) {
 }
 
 function getSchedule() {
-  const sched = [];
-  for (let i = 1; i <= 5; i++) {
-    const s = document.getElementById(`start_${i}`).value;
-    const e = document.getElementById(`end_${i}`).value;
-    const b = parseInt(document.getElementById(`break_${i}`).value) || 0;
+  return Array.from({ length: 5 }, (_, i) => {
+    const s = document.getElementById(`start_${i+1}`).value;
+    const e = document.getElementById(`end_${i+1}`).value;
     const [sh, sm] = s.split(':').map(Number);
     const [eh, em] = e.split(':').map(Number);
-    sched.push({ totalMin: (eh * 60 + em) - (sh * 60 + sm), breakMin: b });
-  }
-  return sched;
+    return { totalMin: (eh*60+em) - (sh*60+sm), breakMin: parseInt(document.getElementById(`break_${i+1}`).value) || 0 };
+  });
 }
 
 function padR(str, len) { return (str + ' '.repeat(len)).slice(0, len); }
 function padL(str, len) { return (' '.repeat(len) + str).slice(-len); }
 
-/* ── CSV parsing ── */
+function updateDurations() {
+  for (let i = 1; i <= 5; i++) {
+    const s = document.getElementById(`start_${i}`).value;
+    const e = document.getElementById(`end_${i}`).value;
+    if (!s || !e) continue;
+    const [sh, sm] = s.split(':').map(Number);
+    const [eh, em] = e.split(':').map(Number);
+    const tot = (eh*60+em) - (sh*60+sm);
+    document.getElementById(`dur_${i}`).textContent = tot > 0 ? fmtMin(tot) : '--';
+  }
+}
+
+for (let i = 1; i <= 5; i++) {
+  document.getElementById(`start_${i}`).addEventListener('input', updateDurations);
+  document.getElementById(`end_${i}`).addEventListener('input', updateDurations);
+}
+
+uploadZone.addEventListener('click', () => fileInput.click());
+uploadZone.addEventListener('dragover', e => { e.preventDefault(); uploadZone.classList.add('dragover'); });
+uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('dragover'));
+uploadZone.addEventListener('drop', e => {
+  e.preventDefault();
+  uploadZone.classList.remove('dragover');
+  if (e.dataTransfer.files[0]) processFile(e.dataTransfer.files[0]);
+});
+fileInput.addEventListener('change', e => { if (e.target.files[0]) processFile(e.target.files[0]); });
+
 function parseCSV(text) {
   if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
   const lines = text.split(/\r?\n/).filter(l => l.trim());
   if (lines.length < 2) return [];
   const headers = lines[0].split(';').map(h => h.trim().toLowerCase());
-  const rows = [];
-  for (let i = 1; i < lines.length; i++) {
-    const vals = lines[i].split(';');
-    const obj  = {};
-    headers.forEach((h, j) => obj[h] = (vals[j] || '').trim());
-    if (!obj.name || !obj.name.includes('@')) continue;
-    rows.push(obj);
-  }
-  return rows;
+  return lines.slice(1).map(line => {
+    const obj = {};
+    line.split(';').forEach((v, j) => obj[headers[j]] = (v || '').trim());
+    return obj;
+  }).filter(r => r.name && r.name.includes('@'));
 }
 
-/* ── Report generation ── */
 function generateReport(rows) {
   const sched  = getSchedule();
   const byDate = {};
-
   for (const row of rows) {
-    if (!byDate[row.date]) byDate[row.date] = [];
-    byDate[row.date].push(row);
+    (byDate[row.date] = byDate[row.date] || []).push(row);
   }
 
-  const dates  = Object.keys(byDate).sort(dateCmp);
   const lines  = [];
   const allDev = [];
 
-  for (const date of dates) {
+  for (const date of Object.keys(byDate).sort(dateCmp)) {
     const dayRows = byDate[date];
     const dIdx    = dayIndex(date);
-
     if (dIdx < 0 || dIdx > 4) continue;
     const s = sched[dIdx];
     if (!s || s.totalMin <= 0) continue;
@@ -524,9 +393,7 @@ function generateReport(rows) {
     lines.push('─'.repeat(64));
 
     const anomalies = [];
-    const sorted    = [...dayRows].sort((a, b) => emailToName(a.name).localeCompare(emailToName(b.name)));
-
-    for (const row of sorted) {
+    for (const row of [...dayRows].sort((a, b) => emailToName(a.name).localeCompare(emailToName(b.name)))) {
       const name     = emailToName(row.name);
       const connMin  = timeToMin(row.connectiontime);
       const brkMin   = timeToMin(row.breaktime);
@@ -543,7 +410,6 @@ function generateReport(rows) {
       );
 
       if (flag) anomalies.push({ name, connDiff, brkDiff });
-
       allDev.push({ email: row.name, name, date, dayName: getDayName(date), connMin, breakMin: brkMin, connDiff, breakDiff: brkDiff, sched: s });
     }
 
@@ -562,7 +428,6 @@ function generateReport(rows) {
   return { report: lines.join('\n'), allDev };
 }
 
-/* ── Summary ── */
 function buildSummaryData(allDev) {
   const people = {};
   for (const d of allDev) {
@@ -580,8 +445,7 @@ function buildSummaryData(allDev) {
 }
 
 function toggleDetail(btn) {
-  const row    = btn.closest('.summary-row');
-  const detail = row.nextElementSibling;
+  const detail = btn.closest('.summary-row').nextElementSibling;
   const open   = detail.style.display !== 'none';
   detail.style.display = open ? 'none' : 'block';
   btn.textContent = open ? '▶' : '▼';
@@ -589,41 +453,35 @@ function toggleDetail(btn) {
 
 function renderSummaryList(containerId, items, type) {
   const el = document.getElementById(containerId);
-  if (!items.length) {
-    el.innerHTML = '<p class="sum-empty">Aucune anomalie détectée.</p>';
-    return;
-  }
+  if (!items.length) { el.innerHTML = '<p class="sum-empty">Aucune anomalie détectée.</p>'; return; }
+
   const maxVal = Math.max(...items.map(p => Math.abs(type === 'break' ? p.breakTotal : p.connTotal)));
   el.innerHTML = items.map((p, idx) => {
     const total      = type === 'break' ? p.breakTotal : p.connTotal;
     const abs        = Math.abs(total);
-    const pct        = Math.round(abs / maxVal * 100);
-    const sign       = total > 0 ? '+' : '-';
     const colorClass = type === 'break' ? 'val-orange' : total > 0 ? 'val-green' : 'val-red';
     const barClass   = type === 'break' ? 'bar-orange' : total > 0 ? 'bar-green' : 'bar-red';
 
-    const detailDays = p.days
+    const detailHTML = p.days
       .filter(d => type === 'break' ? d.breakDiff > 0 : type === 'connOver' ? d.connDiff > 0 : d.connDiff < 0)
-      .sort((a, b) => dateCmp(a.date, b.date));
-
-    const detailHTML = detailDays.map(d => {
-      const diff     = type === 'break' ? d.breakDiff : d.connDiff;
-      const real     = type === 'break' ? d.breakMin  : d.connMin;
-      const expected = type === 'break' ? d.sched.breakMin : d.sched.totalMin;
-      const label    = type === 'break' ? 'Pause' : 'Connexion';
-      const diffSign = diff > 0 ? '+' : '';
-      return `<div class="sum-detail-row">
-        <span class="sum-detail-day">${d.dayName} ${d.date}</span>
-        <span class="sum-detail-info">${label} : ${minToHhmm(real)} <span class="sum-detail-expected">(attendu ${minToHhmm(expected)})</span></span>
-        <span class="sum-detail-diff ${colorClass}">${diffSign}${fmtMin(Math.abs(diff))}</span>
-      </div>`;
-    }).join('');
+      .sort((a, b) => dateCmp(a.date, b.date))
+      .map(d => {
+        const diff     = type === 'break' ? d.breakDiff : d.connDiff;
+        const real     = type === 'break' ? d.breakMin  : d.connMin;
+        const expected = type === 'break' ? d.sched.breakMin : d.sched.totalMin;
+        const label    = type === 'break' ? 'Pause' : 'Connexion';
+        return `<div class="sum-detail-row">
+          <span class="sum-detail-day">${d.dayName} ${d.date}</span>
+          <span class="sum-detail-info">${label} : ${minToHhmm(real)} <span class="sum-detail-expected">(attendu ${minToHhmm(expected)})</span></span>
+          <span class="sum-detail-diff ${colorClass}">${diff > 0 ? '+' : ''}${fmtMin(Math.abs(diff))}</span>
+        </div>`;
+      }).join('');
 
     return `<div class="summary-row">
       <span class="sum-rank">${idx + 1}</span>
       <span class="sum-name">${p.name}</span>
-      <div class="sum-bar-wrap"><div class="sum-bar ${barClass}" style="width:${pct}%"></div></div>
-      <span class="sum-value ${colorClass}">${sign}${fmtMin(abs)}</span>
+      <div class="sum-bar-wrap"><div class="sum-bar ${barClass}" style="width:${Math.round(abs/maxVal*100)}%"></div></div>
+      <span class="sum-value ${colorClass}">${total > 0 ? '+' : '-'}${fmtMin(abs)}</span>
       <button class="sum-toggle" onclick="toggleDetail(this)">▶</button>
     </div>
     <div class="sum-detail" style="display:none">${detailHTML}</div>`;
@@ -636,27 +494,19 @@ function renderSummary(allDev) {
   renderSummaryList('sumConnOver',  connOver,      'connOver');
   renderSummaryList('sumConnUnder', connUnder,     'connUnder');
   const dates = [...new Set(allDev.map(d => d.date))];
-  document.getElementById('sumMeta').textContent =
-    `${dates.length} jour(s) analysé(s) — ${allDev.length} enregistrements`;
+  document.getElementById('sumMeta').textContent = `${dates.length} jour(s) analysé(s) — ${allDev.length} enregistrements`;
   document.getElementById('summaryCard').style.display = 'block';
 }
 
-/* ── File processing ── */
 function processFile(file) {
   hideError();
-  if (!file.name.match(/\.(csv|txt)$/i)) {
-    showError('Format non supporté. Veuillez fournir un fichier .csv');
-    return;
-  }
+  if (!file.name.match(/\.(csv|txt)$/i)) { showError('Format non supporté. Veuillez fournir un fichier .csv'); return; }
   const reader = new FileReader();
   reader.onload = e => {
     try {
       const rows = parseCSV(e.target.result);
-      if (rows.length === 0) {
-        showError(
-          'Aucune donnée valide détectée. Vérifiez que le fichier utilise le séparateur point-virgule ' +
-          'et contient les colonnes : name;date;connectionTime;availableTime;workingTime;breakTime;awayTime'
-        );
+      if (!rows.length) {
+        showError('Aucune donnée valide détectée. Vérifiez que le fichier utilise le séparateur point-virgule et contient les colonnes : name;date;connectionTime;availableTime;workingTime;breakTime;awayTime');
         return;
       }
       const { report, allDev } = generateReport(rows);
@@ -674,14 +524,8 @@ function processFile(file) {
   reader.readAsText(file, 'UTF-8');
 }
 
-function showError(msg) {
-  errorBox.textContent = msg;
-  errorBox.style.display = 'block';
-}
-
-function hideError() {
-  errorBox.style.display = 'none';
-}
+function showError(msg) { errorBox.textContent = msg; errorBox.style.display = 'block'; }
+function hideError()    { errorBox.style.display = 'none'; }
 
 function copyReport() {
   reportTA.select();
@@ -689,9 +533,7 @@ function copyReport() {
     const fb = document.getElementById('copyFeedback');
     fb.style.display = 'inline';
     setTimeout(() => fb.style.display = 'none', 2500);
-  }).catch(() => {
-    document.execCommand('copy');
-  });
+  }).catch(() => document.execCommand('copy'));
 }
 
 function resetApp() {
