@@ -54,6 +54,47 @@ Le rapport texte produit par jour :
 
 Le lundi avait été initialement saisi avec une fin à 17h (480 min). Corrigé à 18h (540 min) avant la création de l'app — les valeurs par défaut dans le code sont donc déjà correctes.
 
+## Déploiement GitHub Pages
+
+L'app est hébergée sur GitHub Pages à l'adresse :
+**`https://vdumas-dms.github.io/rapport-presence/`**
+
+### Mise en place du dépôt git
+
+Le dépôt git local a été initialisé directement dans le dossier `rapport-presence/` (pas à la racine de l'espace de travail, sinon VS Code y inclut tous les fichiers parents).
+
+Commandes utilisées :
+```bash
+cd rapport-presence
+git init
+git remote add origin https://github.com/vdumas-dms/rapport-presence.git
+git add index.html SYNTHESE.md
+git commit -m "feat: ..."
+git push -u origin main
+```
+
+### Authentification automatique
+
+Git utilise le gestionnaire de credentials macOS (keychain) — aucun token à saisir manuellement. Lors du premier `git push`, VS Code a ouvert une fenêtre d'authentification GitHub avec le compte `vdumas-dms`. Les pushes suivants se font sans aucune interaction.
+
+### Pousser une mise à jour
+
+Depuis le terminal dans le dossier `rapport-presence/` :
+```bash
+git add index.html
+git commit -m "description de la modification"
+git push
+```
+
+GitHub Pages se met à jour automatiquement en 1–2 minutes.
+
+### Points de vigilance
+
+- Initialiser le dépôt git **dans** `rapport-presence/`, jamais dans le dossier parent (risque d'inclure des PDFs confidentiels et données personnelles dans un repo public)
+- Le fichier `.gitignore` à la racine du dossier exclut les fichiers indésirables
+
+---
+
 ## Évolutions apportées
 
 ### Synthèse visuelle (section au-dessus du rapport texte)
@@ -77,10 +118,21 @@ La fonction `emailToName()` transforme l'email en nom affiché :
 - `jean-pierre.dupont-martin@youschool.fr` → `Jean-Pierre DUPONT-MARTIN`
 - Règle : premier segment capitalisé (prénom), segments suivants en majuscules (nom)
 
+## Incident : fichier corrompu (2026-05-29)
+
+Le fichier `index.html` s'est retrouvé tronqué — seule la fin du JavaScript était présente, tout le HTML/CSS avait disparu. Cause probable : une synchronisation OneDrive ou une édition accidentelle dans l'IDE.
+
+Le fichier a été entièrement reconstruit à partir du contexte de session Claude Code, puis poussé sur GitHub. La page GitHub Pages a été restaurée sans perte de fonctionnalité.
+
+**Bonne pratique :** pousser sur GitHub régulièrement après chaque modification — le dépôt sert de sauvegarde fiable contre ce type de corruption.
+
+---
+
 ## Fichiers
 
 | Fichier | Rôle |
 |---------|------|
 | `index.html` | Application complète (HTML + CSS + JS inline) |
 | `SYNTHESE.md` | Ce fichier — documentation du projet |
+| `.gitignore` | Exclut PDFs, CSV et fichiers système du dépôt git |
 | `AGENTS_STATE_PER_DAY.csv` | Fichier source d'exemple (dans le dossier parent) |
